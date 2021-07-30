@@ -9,13 +9,13 @@ on:
 jobs:
   Validation:
     runs-on: ubuntu-20.04
-    name: validation
+    name: Template Validation
 
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
-      - name: Template Validation
-        uses: diegoaceneves/packer-github-actions@main
+      - name: Packer Validation
+        uses: diegoaceneves/packer-github-actions@v1.0.0
         with:
           command: validate
           arguments: "-color=false -on-error=abort"
@@ -32,7 +32,7 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - name: Packer build
-        uses: diegoaceneves/packer-build-action@main
+        uses: diegoaceneves/packer-build-action@v1.0.0
         with:
           templateFile: 'main.pkr.hcl'
           workingDir: '.'
