@@ -32,7 +32,7 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - name: Packer build
-        uses: diegoaceneves/packer-build-action@v1.0.0
+        uses: diegoaceneves/packer-github-actions@v1.0.0
         with:
           command: build
           arguments: "-color=false -on-error=abort -var-file=variables.hcl"
