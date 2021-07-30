@@ -1,0 +1,42 @@
+---
+name: CI Devel
+
+on:
+  push:
+    branches: [ devel ]
+  pull_request:
+
+jobs:
+  Validation:
+    runs-on: ubuntu-20.04
+    name: validation
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+      - name: Template Validation
+        uses: diegoaceneves/packer-github-actions@main
+        with:
+          templateFile: 'main.pkr.hcl'
+          varFile: 'variables.hcl'
+          workingDir: '.'
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
+
+  Build:
+    runs-on: ubuntu-20.04
+    name: Template Build
+    steps:
+      - uses: actions/checkout@v1
+      - name: Packer build
+        uses: diegoaceneves/packer-build-action@main
+        with:
+          templateFile: 'main.pkr.hcl'
+          varFile: 'variables.hcl'
+          workingDir: '.'
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
