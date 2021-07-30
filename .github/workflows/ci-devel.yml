@@ -17,9 +17,10 @@ jobs:
       - name: Template Validation
         uses: diegoaceneves/packer-github-actions@main
         with:
-          templateFile: 'main.pkr.hcl'
-          varFile: 'variables.hcl'
-          workingDir: '.'
+          command: validate
+          arguments: "-color=false -on-error=abort"
+          target: 'main.pkr.hcl'
+          working_directory: '.'
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -34,7 +35,6 @@ jobs:
         uses: diegoaceneves/packer-build-action@main
         with:
           templateFile: 'main.pkr.hcl'
-          varFile: 'variables.hcl'
           workingDir: '.'
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
