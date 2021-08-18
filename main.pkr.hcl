@@ -2,6 +2,11 @@ variable "name" {
   type = string
 }
 
+variable "gitversion" {
+  type = string
+  default = "v1.0.0"
+}
+
 variable "region" {
   type = string
   default = "us-east-1"
@@ -28,6 +33,7 @@ source "amazon-ebs" "ubuntu" {
         Release = "Latest"
         Base_AMI_ID = "{{ .SourceAMI }}"
         Base_AMI_Name = "{{ .SourceAMIName }}"
+        Software_Version = "${var.gitversion}}"
     }
 }
 
@@ -40,11 +46,12 @@ build {
         galaxy_file = "requirements.yml"
         user = "ubuntu"
         ansible_env_vars = [
-            "ANSIBLE_HOST_KEY_CHECKING=False"
+            "ANSIBLE_HOST_KEY_CHECKING=False",
+            
         ]
         extra_arguments = [
             "--extra-vars",
-            "ansible_python_interpreter=/usr/bin/python3",
+            "GITVERSION=${var.gitversion} ansible_python_interpreter=/usr/bin/python3",
             "-vvvv"
         ]
     }
