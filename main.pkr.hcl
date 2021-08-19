@@ -33,7 +33,7 @@ source "amazon-ebs" "ubuntu" {
         Release = "Latest"
         Base_AMI_ID = "{{ .SourceAMI }}"
         Base_AMI_Name = "{{ .SourceAMIName }}"
-        Software_Version = "${var.gitversion}}"
+        Software_Version = "${var.gitversion}"
     }
 }
 
