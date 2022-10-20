@@ -1,2 +1,2 @@
 name = "Einstein"
-gitversion = "v1.0.2"
+gitversion = "v1.0.3"
